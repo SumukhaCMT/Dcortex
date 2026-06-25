@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { openai } from "@workspace/integrations-openai-ai-server";
-import OpenAI from "openai";
+import type { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { logger } from "../lib/logger";
 
 const router = Router();
@@ -31,7 +31,7 @@ router.post("/chat", async (req, res) => {
       return;
     }
 
-    const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
+    const messages: ChatCompletionMessageParam[] = [
       { role: "system", content: SYSTEM_PROMPT },
       ...(history || []).map((h) => ({
         role: h.role as "user" | "assistant",
