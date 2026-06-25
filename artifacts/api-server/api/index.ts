@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import nodemailer from "nodemailer";
+import https from "https";
 
 const app = express();
 
@@ -120,17 +121,35 @@ app.post("/api/chat", async (req, res) => {
       { role: "user", content: message },
     ];
 
-    const fetchResponse = await (globalThis.fetch as typeof fetch)("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-      body: JSON.stringify({ model: "gpt-4o-mini", messages, max_tokens: 512 }),
+    const data = await new Promise<{ choices: { message: { content: string } }[] }>((resolve, reject) => {
+      const body = JSON.stringify({ model: "gpt-4o-mini", messages, max_tokens: 512 });
+      const req = https.request(
+        {
+          hostname: "api.openai.com",
+          path: "/v1/chat/completions",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Length": Buffer.byteLength(body),
+          },
+        },
+        (httpRes) => {
+          let raw = "";
+          httpRes.on("data", (chunk: Buffer) => { raw += chunk.toString(); });
+          httpRes.on("end", () => {
+            if (httpRes.statusCode && httpRes.statusCode >= 400) {
+              reject(new Error(`OpenAI API error: ${httpRes.statusCode}`));
+            } else {
+              resolve(JSON.parse(raw) as { choices: { message: { content: string } }[] });
+            }
+          });
+        }
+      );
+      req.on("error", reject);
+      req.write(body);
+      req.end();
     });
-
-    if (!fetchResponse.ok) {
-      throw new Error(`OpenAI API error: ${fetchResponse.status}`);
-    }
-
-    const data = await fetchResponse.json() as { choices: { message: { content: string } }[] };
     const reply = data.choices[0]?.message?.content ?? "I'm unable to respond right now. Please try again.";
     res.json({ reply });
   } catch (err) {
