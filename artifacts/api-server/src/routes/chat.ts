@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { openai } from "@workspace/integrations-openai-ai-server";
+import OpenAI from "openai";
+import { logger } from "../lib/logger";
 
 const router = Router();
 
@@ -47,7 +49,7 @@ router.post("/chat", async (req, res) => {
     const reply = completion.choices[0]?.message?.content ?? "I'm unable to respond right now. Please try again.";
     res.json({ reply });
   } catch (err) {
-    req.log.error({ err }, "Chat error");
+    logger.error({ err }, "Chat error");
     res.status(500).json({ error: "Failed to get response" });
   }
 });
