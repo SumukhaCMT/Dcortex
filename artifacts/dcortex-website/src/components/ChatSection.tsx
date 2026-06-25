@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, Sparkles, X } from "lucide-react";
 import { useSendChatMessage } from "@workspace/api-client-react";
 import type { ChatHistoryItem } from "@workspace/api-client-react";
-import logoFull from "@assets/dcortex_final_logo-01_1782276213529.png";
+import logoFull from "../assets/logo.png";
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 

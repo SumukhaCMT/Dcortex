@@ -9,7 +9,7 @@ import {
   Linkedin, Mail,
   Users, GitMerge, BookOpen,
 } from "lucide-react";
-import logoFull from "@assets/dcortex_final_logo-01_1782276213529.png";
+import logoFull from "../assets/logo.png";
 import { HeroSection } from "@/components/HeroSection";
 import { ChatSection } from "@/components/ChatSection";
 import { SignalsSection } from "@/components/SignalsSection";
