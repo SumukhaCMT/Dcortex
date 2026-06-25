@@ -120,17 +120,17 @@ app.post("/api/chat", async (req, res) => {
       { role: "user", content: message },
     ];
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const fetchResponse = await (globalThis.fetch as typeof fetch)("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
       body: JSON.stringify({ model: "gpt-4o-mini", messages, max_tokens: 512 }),
     });
 
-    if (!response.ok) {
-      throw new Error(`OpenAI API error: ${response.status}`);
+    if (!fetchResponse.ok) {
+      throw new Error(`OpenAI API error: ${fetchResponse.status}`);
     }
 
-    const data = await response.json() as { choices: { message: { content: string } }[] };
+    const data = await fetchResponse.json() as { choices: { message: { content: string } }[] };
     const reply = data.choices[0]?.message?.content ?? "I'm unable to respond right now. Please try again.";
     res.json({ reply });
   } catch (err) {
