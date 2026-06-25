@@ -1,22 +1,22 @@
 import express, { type Express } from "express";
 import cors from "cors";
-import * as pinoHttpModule from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
 
 const app: Express = express();
 
-const pinoHttp: any =
-  (pinoHttpModule as any).default ?? pinoHttpModule;
+// pino-http types are incompatible with bundler moduleResolution — suppress check
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const pinoHttp = require("pino-http");
 
 app.use(
   pinoHttp({
     logger,
     serializers: {
-      req(req: any) {
+      req(req: { id: unknown; method: string; url?: string }) {
         return { id: req.id, method: req.method, url: req.url?.split("?")[0] };
       },
-      res(res: any) {
+      res(res: { statusCode: number }) {
         return { statusCode: res.statusCode };
       },
     },
