@@ -469,7 +469,7 @@ export default function Home() {
                   className="flex items-center gap-2 text-[11px] font-semibold text-primary/50 group-hover:text-primary transition-colors duration-200 w-fit"
                 >
                   <BookOpen className="w-3 h-3" />
-                  Read more
+                  Read more 
                 </a> 
               </motion.div>
             ))}
