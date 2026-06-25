@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createTransporter, MAIL_FROM, MAIL_RECIPIENTS } from "../lib/mail.config";
+import { logger } from "../lib/logger";
 
 const router = Router();
 
@@ -56,7 +57,7 @@ router.post("/contact", async (req, res) => {
         html: emailHtml,
       });
     } else {
-      req.log.info(
+      logger.info(
         { airline, name, designation, purpose },
         "Contact form submission (SMTP not configured — set SMTP_HOST, SMTP_USER, SMTP_PASS to enable email delivery)"
       );
@@ -64,7 +65,7 @@ router.post("/contact", async (req, res) => {
 
     res.json({ success: true, message: "Your request has been submitted. We'll be in touch soon." });
   } catch (err) {
-    req.log.error({ err }, "Contact form error");
+    logger.error({ err }, "Contact form error");
     res.status(500).json({ error: "Failed to submit form. Please try again." });
   }
 });

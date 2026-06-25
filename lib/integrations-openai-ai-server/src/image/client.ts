@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import OpenAI, { toFile } from "openai";
+import { toFile } from "openai";
 import { Buffer } from "node:buffer";
 
 if (!process.env.AI_INTEGRATIONS_OPENAI_BASE_URL) {
@@ -13,6 +13,9 @@ if (!process.env.AI_INTEGRATIONS_OPENAI_API_KEY) {
     "AI_INTEGRATIONS_OPENAI_API_KEY must be set. Did you forget to provision the OpenAI AI integration?",
   );
 }
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const OpenAI = require("openai").default ?? require("openai");
 
 export const openai = new OpenAI({
   apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
