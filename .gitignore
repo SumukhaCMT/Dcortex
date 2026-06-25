@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+**/dist/
+tmp/
+*.tsbuildinfo
+
+# Environment variables — never commit
+.env
+.env.local
+.env.*.local
+
+# pnpm
+.pnpm-store/
+
+# Vite
+**/.vite-temp/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# System
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Replit / internal tooling
+.cache/
+.local/
+.cursor/
+.replit-artifact/
+*.zip
+
+# Attached assets (large binaries — use cloud storage or git LFS)
+attached_assets/

@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "TKx90RofoPWTDsTX3XnSr"
+uri = "file://artifacts/dcortex-website/public/hero-bg.png"
+type = "image"
+title = "airport tarmac at night"
+
+[[generated]]
+id = "CI6QDwKk6-DmB50A98ypE"
+uri = "file://attached_assets/generated_images/wide_cinematic_shot_of_eb95.png"
+type = "image"
+title = "generated_image"
