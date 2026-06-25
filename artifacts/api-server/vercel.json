@@ -1,4 +1,12 @@
 {
-  "buildCommand": "node api/build.mjs",
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/built" }]
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/api/index" }
+  ]
 }
