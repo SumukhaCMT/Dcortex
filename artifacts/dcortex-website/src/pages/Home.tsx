@@ -470,7 +470,7 @@ export default function Home() {
                 >
                   <BookOpen className="w-3 h-3" />
                   Read more
-                </a>
+                </a> 
               </motion.div>
             ))}
           </div>
