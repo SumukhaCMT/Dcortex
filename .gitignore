@@ -43,3 +43,4 @@ Thumbs.db
 
 # Attached assets (large binaries — use cloud storage or git LFS)
 attached_assets/
+artifacts/api-server/api/built.mjs

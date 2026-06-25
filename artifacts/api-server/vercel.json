@@ -1,3 +1,4 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/index" }]
+  "buildCommand": "node api/build.mjs",
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/built" }]
 }
