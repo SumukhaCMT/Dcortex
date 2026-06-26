@@ -185,11 +185,11 @@ export default function Home() {
   const { scrollYProgress: ctaSP } = useScroll({ target: ctaRef, offset: ["start end", "end start"] });
   const ctaBgY = useSpring(useTransform(ctaSP, [0, 1], ["8%", "-8%"]), { stiffness: 55, damping: 18 });
 
-  /* "Built to act." zoom — continuous within the green section */
+  /* "Built to act." zoom — starts as section enters viewport */
   const builtRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: builtSP } = useScroll({ target: builtRef, offset: ["start start", "end start"] });
-  const builtScale = useTransform(builtSP, [0, 0.50], [1, 10]);
-  const builtOpacity = useTransform(builtSP, [0.46, 0.92], [1, 0]);
+  const { scrollYProgress: builtSP } = useScroll({ target: builtRef, offset: ["start end", "end start"] });
+  const builtScale = useTransform(builtSP, [0.25, 0.70], [1, 10]);
+  const builtOpacity = useTransform(builtSP, [0.65, 0.95], [1, 0]);
 
   const scrollToCTA = () => {
     document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" });
@@ -491,7 +491,7 @@ export default function Home() {
             <div style={{ flex: "1 1 320px" }}>
               <h2 style={{ fontSize: SEC_HEADING, fontWeight: 800, lineHeight: 1.06, letterSpacing: "-0.01em", marginBottom: "1.25rem" }}>
                 <RevealWords style={{ color: "#f7f5f1" }}>Help build</RevealWords>
-                <RevealWords delay={0.25} style={{ color: "#7ed321" }}>Operational layer.</RevealWords>
+                <RevealWords delay={0.25} style={{ color: "#7ed321" }}>Operational Intelligence.</RevealWords>
               </h2>
               <FadeUp delay={0.2}>
                 <p style={{ color: "rgba(247,245,241,0.50)", lineHeight: 1.75, maxWidth: "40ch", fontWeight: 450, fontSize: "clamp(0.9rem, 1.4vw, 1.05rem)" }}>
@@ -639,24 +639,10 @@ export default function Home() {
         >
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-12">
             <img src={logoFull} alt="dCortex" className="h-20 w-auto" style={{ opacity: 0.80 }} />
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 text-sm w-full md:w-auto">
+            <div className="flex flex-col md:flex-row gap-8 md:gap-16 text-sm">
               <div className="flex flex-col gap-3">
-                {[
-                  { label: "Why Existing Systems Fail", href: "#" },
-                  { label: "How It Works", href: "#" },
-                  { label: "The Builders", href: "#founders" },
-                ].map(({ label, href }) => (
-                  <a key={label} href={href}
-                    style={{ color: "rgba(247,245,241,0.52)", transition: "color 0.2s" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#f7f5f1")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(247,245,241,0.52)")}
-                  >
-                    {label}
-                  </a>
-                ))}
-              </div>
-              <div className="flex flex-col gap-3">
-                <a href="https://wellfound.com/company/dcortex/jobs" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(247,245,241,0.52)", transition: "color 0.2s" }}
+                <a href="https://wellfound.com/company/dcortex/jobs" target="_blank" rel="noopener noreferrer"
+                  style={{ color: "rgba(247,245,241,0.52)", transition: "color 0.2s" }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "#f7f5f1")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(247,245,241,0.52)")}
                 >Careers</a>
@@ -665,17 +651,18 @@ export default function Home() {
                   onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(247,245,241,0.52)")}
                   onClick={(e) => { e.preventDefault(); setIsContactOpen(true); }}
                 >Demo</a>
-                <a href="#" style={{ color: "rgba(247,245,241,0.52)", transition: "color 0.2s" }}
+                <a href="#founders"
+                  style={{ color: "rgba(247,245,241,0.52)", transition: "color 0.2s" }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "#f7f5f1")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(247,245,241,0.52)")}
-                >Insights</a>
+                >The Builders</a>
               </div>
-              <div className="col-span-2 md:col-span-1 flex flex-col gap-3 pt-2 md:pt-0" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }} >
-                <a href="mailto:connect@dcortex.ai" style={{ color: "rgba(247,245,241,0.52)", transition: "color 0.2s" }}
+              <div className="flex flex-col gap-3">
+                <a href="mailto:connect@dcortex.ai"
+                  style={{ color: "rgba(247,245,241,0.52)", transition: "color 0.2s" }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "#f7f5f1")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(247,245,241,0.52)")}
                 >connect@dcortex.ai</a>
-
                 <span style={{ color: "rgba(247,245,241,0.52)" }}>San Francisco, CA</span>
               </div>
             </div>
